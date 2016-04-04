@@ -38,7 +38,8 @@ Crypto.prototype.ciphertext = function() {
 	var segments = this.plaintextSegments();
 
 	for (i = 0; i < this.size(); i++) {			// run through array
-		for(j = 0; j < this.size(); j++) {		// run through strings
+		// run through strings keeping charAt() in bounds
+		for(j = 0; j < segments.length && i < segments[j].length; j++) { 
 			message += segments[j].charAt(i);	// add letters in order
 		}
 	}
