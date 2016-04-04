@@ -1,48 +1,48 @@
-var Crypto,
-	message,
-	normalizePlaintext,
-	size,
-	plaintextSegments,
-	ciphertext;
+var Crypto;
 
 Crypto = function(text) {
-	this.message = text;
-	this.message = this.message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
-	this.message = this.message.replace(/\s+/g, '');
-	this.message = this.message.toLowerCase();
+	this.text = text;
 };
 
 Crypto.prototype.normalizePlaintext =  function() {
-	return this.message;
+	var message = this.text.replace(/[.,\/#!$%\^&\*;?:{}=\-_`~()]/g, ''); // remove punctuation
+	message = message.replace(/\s+/g, ''); 	// remove spaces
+	message = message.toLowerCase(); 		// all lower case
+	return message;
 };
 
 Crypto.prototype.size = function() {
-	var size = Math.sqrt(this.message.length);
-	if (size % 1 === 0)
+	var message = this.normalizePlaintext(); 	// normalize
+	var size = Math.sqrt(message.length); 		// find the square
+
+	if (size % 1 === 0) // return the size if it's a perfect square
 		return size;
-	else
+	else 				// round up if it isn't a perfect square
 		return Math.ceil(size);
 };
 	
 Crypto.prototype.plaintextSegments = function() {
 	var segments = [];
-	for (i = 0; i < this.size(); i++) {
-		segments[i] = this.message.slice(i * this.size(), (i+1) * this.size());	
+	var message = this.normalizePlaintext();	// normalize
+
+	for (i = 0; i < this.size(); i++) {			// cut and store into an array
+		segments[i] = message.slice(i * this.size(), (i+1) * this.size());	
 	}
-	if (segments[segments.length-1] == '')
+	if (segments[segments.length-1] == '')		// remove extra element if it doesn't fill the array
 		segments.pop();
 	return segments;
 };
 
 Crypto.prototype.ciphertext = function() {
-	var text = '';
+	var message = '';
 	var segments = this.plaintextSegments();
-	for (i = 0; i < this.size(); i++) {
-		for(j = 0; j < this.size(); j++) {
-			text += segments[j].slice(i, i+1);
+
+	for (i = 0; i < this.size(); i++) {			// run through array
+		for(j = 0; j < this.size(); j++) {		// run through strings
+			message += segments[j].charAt(i);	// add letters in order
 		}
 	}
-	return text;
+	return message;
 };
 
 module.exports = Crypto;

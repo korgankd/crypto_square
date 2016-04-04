@@ -45,10 +45,12 @@ describe('Crypto',function() {
     var crypto = new Crypto('Time is an illusion. Lunchtime doubly so.');
     expect(crypto.ciphertext()).toEqual('tasneyinicdsmiohooelntuillibsuuml');
   });
+
   it('plain text segments1',function() {
     var crypto = new Crypto('Time is an illusion. Lunchtime doubly so.');
     expect(crypto.plaintextSegments()).toEqual(['timeis', 'anillu', 'sionlu', 'nchtim', 'edoubl', 'yso']);
   });
+
   it('size1',function() {
     var crypto = new Crypto('Time is an illusion. Lunchtime doubly so.');
     expect(crypto.size()).toEqual(6);
@@ -57,5 +59,15 @@ describe('Crypto',function() {
   it('cipher text',function() {
     var crypto = new Crypto('We all know interspecies romance is weird.');
     expect(crypto.ciphertext()).toEqual('wneiaweoreneawssciliprerlneoidktcms');
+  });
+
+  it('cipher text',function() {
+    var crypto = new Crypto('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz');
+    expect(crypto.size()).toEqual(11);
+  });
+
+  it('cipher text',function() {
+    var crypto = new Crypto('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz');
+    expect(crypto.plaintextSegments()).toEqual(['abcdefghijk', 'lmnopqrstuv', 'wxyzabcdefg', 'hijklmnopqr', 'stuvwxyzabc', 'defghijklmn', 'opqrstuvwxy', 'zabcdefghij', 'klmnopqrstu', 'vwxyz']);
   });
 });

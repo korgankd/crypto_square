@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var Crypto = require('./crypto-square');
+var	message = process.argv[2];
+cipher = new Crypto(message);
+
+console.log(cipher.normalizePlaintext());
+console.log(cipher.size());
+console.log(cipher.plaintextSegments());
+console.log(cipher.ciphertext());
