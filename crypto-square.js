@@ -22,20 +22,20 @@ Crypto.prototype.size = function() {
 };
 	
 Crypto.prototype.plaintextSegments = function() {
-	var segments = [];
 	var message = this.normalizePlaintext();	// normalize
+	var segments = [];
 
 	for (i = 0; i < this.size(); i++) {			// cut and store into an array
 		segments[i] = message.slice(i * this.size(), (i+1) * this.size());	
 	}
-	if (segments[segments.length-1] == '')		// remove extra element if it doesn't fill the array
+	if (segments[segments.length-1] === '')		// remove extra element if it doesn't fill the array
 		segments.pop();
 	return segments;
 };
 
 Crypto.prototype.ciphertext = function() {
-	var message = '';
 	var segments = this.plaintextSegments();
+	var message = '';
 
 	for (i = 0; i < this.size(); i++) {			// run through array
 		// run through strings keeping charAt() in bounds
